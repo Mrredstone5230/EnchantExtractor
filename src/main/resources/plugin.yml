@@ -1,0 +1,10 @@
+name: EnchantExtractor
+version: ${project.version}
+main: me.polishkrowa.enchantextractor.EnchantExtractor
+api-version: 1.17
+
+commands:
+  extract-enchant:
+    aliases: [ee, extract-e, e-enchant, e-e]
+    description: Takes the enchants from the item in the main hand to apply it the book held in the offhand of the player.
+    usage: /extract-enchant
