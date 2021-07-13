@@ -83,6 +83,7 @@ public final class EnchantExtractor extends JavaPlugin implements CommandExecuto
             playerLoc.add(-0.5, -0.3, -0.5);
             Item itemEntity = player.getWorld().dropItemNaturally(playerLoc, enchantedBook);
             itemEntity.setOwner(player.getUniqueId());
+            itemEntity.setPickupDelay(-1);
         }
 
         player.sendMessage(ChatColor.GREEN + "Enchantments extracted !");
