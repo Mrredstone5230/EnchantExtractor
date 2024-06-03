@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Arrays;
 import java.util.List;
 
 public final class EnchantExtractor extends JavaPlugin implements CommandExecutor, TabExecutor {
@@ -22,6 +23,7 @@ public final class EnchantExtractor extends JavaPlugin implements CommandExecuto
         // Plugin startup logic
         this.getCommand("extract-enchant").setExecutor(this);
         this.getCommand("extract-enchant").setTabCompleter(this);
+        saveDefaultConfig();
     }
 
     @Override
@@ -32,24 +34,24 @@ public final class EnchantExtractor extends JavaPlugin implements CommandExecuto
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args != null && args.length >= 1 && args[0].equalsIgnoreCase("help")) {
-            sender.sendMessage(ChatColor.GREEN + "EnchantExtractor v1.0");
-            sender.sendMessage(ChatColor.YELLOW + "This command will take the enchantments from the item in your mainhand and put them in a book in your offhand.");
+            sender.sendMessage(ChatColor.GREEN + "EnchantExtractor v1.2");
+            sender.sendMessage(getColoredMessage("messages.description"));
             return true;
         }
 
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "This command is only available for players !");
+            sender.sendMessage(getColoredMessage("messages.not_player"));
             return true;
         }
         Player player = (Player) sender;
 
         if (player.getInventory().getItemInMainHand() == null || player.getInventory().getItemInMainHand().getType().equals(Material.AIR)) {
-            player.sendMessage(ChatColor.RED + "Your main item has to be in your mainhand !");
+            player.sendMessage(getColoredMessage("messages.no_mainhand"));
             return true;
         }
 
         if (player.getInventory().getItemInOffHand() == null || !player.getInventory().getItemInOffHand().getType().equals(Material.BOOK)) {
-            player.sendMessage(ChatColor.RED + "You need a book in your offhand !");
+            player.sendMessage(getColoredMessage("messages.no_book"));
             return true;
         }
 
@@ -60,7 +62,7 @@ public final class EnchantExtractor extends JavaPlugin implements CommandExecuto
         EnchantmentStorageMeta bookMeta = (EnchantmentStorageMeta) enchantedBook.getItemMeta();
 
         if (mainItem.getEnchantments().isEmpty()) {
-            player.sendMessage(ChatColor.RED + "The item in your mainhand needs enchantments !");
+            player.sendMessage(getColoredMessage("messages.no_enchants"));
             return true;
         }
 
@@ -86,12 +88,16 @@ public final class EnchantExtractor extends JavaPlugin implements CommandExecuto
             itemEntity.setPickupDelay(-1);
         }
 
-        player.sendMessage(ChatColor.GREEN + "Enchantments extracted !");
+        player.sendMessage(getColoredMessage("messages.success"));
         return true;
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        return null;
+        return Arrays.asList("help", "extract");
+    }
+
+    private String getColoredMessage(String config_path) {
+        return ChatColor.translateAlternateColorCodes('&', this.getConfig().getString(config_path));
     }
 }

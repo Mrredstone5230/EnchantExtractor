@@ -6,7 +6,7 @@
 
     <groupId>me.PolishKrowa</groupId>
     <artifactId>EnchantExtractor</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
     <name>EnchantExtractor</name>
@@ -42,6 +42,15 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>fr.lehtto.maven.plugins</groupId>
+                <artifactId>servermc-maven-plugin</artifactId>
+                <version>0.1.0</version>
+                <configuration>
+                    <eula>true</eula>
+                    <mcVersion>1.20.4</mcVersion>
+                </configuration>
             </plugin>
         </plugins>
         <resources>

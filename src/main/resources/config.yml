@@ -1,0 +1,6 @@
+messages.description: "&eThis command will take the enchantments from the item in your mainhand and put them in a book in your offhand."
+messages.not_player: "&cThis command is only available for players !"
+messages.no_mainhand: "&cYour main item has to be in your mainhand !"
+messages.no_book: "&cYou need a book in your offhand !"
+messages.no_enchants: "&cThe item in your mainhand needs enchantments !"
+messages.success: "&aEnchantments extracted !"
